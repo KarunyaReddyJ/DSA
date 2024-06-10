@@ -5,4 +5,7 @@
 <li>Graphs</li>
 <li>Divide and Conquer</li>
 <li>Binary Search</li>
+<li>DFS</li>
+<li>BFS</li>
+<li>Sub Array</li>
 </ul>
