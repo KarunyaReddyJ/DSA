@@ -1,28 +1,44 @@
-function canFinish(numCourses: number, prerequisites: number[][]): boolean {
-    const adjList:number[][]=[]
-    for(let i=0;i<numCourses;i++){
-        adjList.push([]);
-    }
-    for(let [c,p] of prerequisites){
-        adjList[c].push(p)
-    }
-    for(let [c,p] of prerequisites){
-        let visited:boolean[]=[]
-        for(let i=0;i<numCourses;i++){
-            visited.push(false);
+function detectCycleInDirectedGraph(numNodes: number, edges: number[][]): boolean {
+    const adjList: Map<number, number[]> = new Map();
+    for (let [src, dest] of edges) {
+        if (!adjList.has(src)) {
+            adjList.set(src, []);
         }
-        if(isCycle(adjList,p,c,visited))
-            return false
+        adjList.get(src)!.push(dest);
     }
-    return true
-};
-function isCycle(adjList:number[][],start:number,target:number,visited:boolean[]){
-    if(start===target)
-        return true
-    let ans=false
-    for(let x of adjList[start]){
-        ans=ans || isCycle(adjList,x,target,visited)
+    const visited: boolean[] = new Array(numNodes).fill(false);
+    const recStack: boolean[] = new Array(numNodes).fill(false);
+    function dfs(node: number): boolean {
+        if (recStack[node]) {
+            return true; 
+        }
+        if (visited[node]) {
+            return false; 
+        }
+        visited[node] = true;
+        recStack[node] = true;
+        if (adjList.has(node)) {
+            for (let neighbor of adjList.get(node)!) {
+                if (dfs(neighbor)) {
+                    return true;
+                }
+            }
+        }
+        recStack[node] = false;
+        return false;
     }
-    return ans
+    for (let i = 0; i < numNodes; i++) {
+        if (!visited[i]) {
+            if (dfs(i)) {
+                return true; 
+            }
+        }
+    }
+
+    return false; 
 }
-console.log(canFinish(3,[[1,0],[2,0],[0,2]]))
+
+
+function canFinish(numNodes: number, edges: number[][]):boolean{
+    return !detectCycleInDirectedGraph(numNodes,edges,)
+}

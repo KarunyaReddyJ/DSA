@@ -23,3 +23,4 @@ function binarySearch(customfunction: CustomFunction,row:number,z:number):number
     }
     return -1
 }
+export {}
