@@ -23,6 +23,6 @@ void solve(){
     cout<<recursion(0,0);
 }
 int main(){
-int t=1;
-for(int i=1;i<=t;i++) solve();
+    int t=1;
+    for(int i=1;i<=t;i++) solve();
 }

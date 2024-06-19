@@ -7,7 +7,7 @@ void findGenerationsOfAmoabae(int n,vector<int> splits){
         adj[splits[i-1]-1].push_back(2*i);
         adj[splits[i-1]-1].push_back(2*i+1);
     }
-    queue<pair<int,int>> q;//first=node,second=generation
+    queue<pair<int,int>> q;  //first=node,second=generation
     q.push({1,0});
     vector<int> generations(2*n+1,0);
     while(!q.empty()){
