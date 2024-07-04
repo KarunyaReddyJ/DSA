@@ -18,15 +18,16 @@ public:
         return *min_element(cache[0].begin(),cache[0].end());
     }
 private:
-    int recursion(vector<vector<int>>& matrix,int level,int indexChosen){
+    int recursion(vector<vector<int>>& matrix,size_t level,size_t indexChosen){
         if(level==matrix.size()) return 0;
-        if(indexChosen<0 || indexChosen==matrix.size()) return INT_MAX;
+        if(indexChosen<0 || indexChosen==matrix.size()) 
+            return INT_MAX;
         int southWest=INT_MAX,south=INT_MAX,southEast=INT_MAX;
-        if(indexChosen-1>=0)
+        if(indexChosen-1>=0) 
             southWest=matrix[level][indexChosen-1]+recursion(matrix,level+1,indexChosen-1);
         south=matrix[level][indexChosen]+recursion(matrix,level+1,indexChosen);
         if(indexChosen+1<matrix.size())
-        southEast=matrix[level][indexChosen+1]+recursion(matrix,level+1,indexChosen+1);
+            southEast=matrix[level][indexChosen+1]+recursion(matrix,level+1,indexChosen+1);
         return min(south,min(southEast,southWest));
     }
 };
@@ -34,7 +35,6 @@ int main(){
     Solution s;
     int n;
     cin>>n;
-
     vector<vector<int>> matrix(n,vector<int>(n,0));
     for(vector<int>& v : matrix)
         for(int& x : v) cin>>x;
